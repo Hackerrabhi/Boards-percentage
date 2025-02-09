@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Exam Percentage Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 500px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            width: 90%;
+        }
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        /* Pop-up styles */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            display: none;
+            z-index: 1000;
+        }
+        .popup img {
+            width: 250px;
+            height: auto;
+            animation: bounce 1s infinite alternate;
+        }
+        .popup h1 {
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px red;
+            animation: blink 1s infinite alternate;
+        }
+        /* Laughing Emoji */
+        .laugh-emoji {
+            font-size: 80px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 2s linear infinite;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        /* Fireworks */
+        .fireworks {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none;
+            display: none;
+        }
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: yellow;
+            border-radius: 50%;
+            animation: explode 1s ease-out infinite;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>📊 Board Exam Percentage Calculator 📊</h2>
+        <input type="text" id="username" placeholder="Enter your name"><br>
+
+        <h3>Enter Your Subjects</h3>
+        <input type="text" id="sub1" placeholder="Subject 1"><br>
+        <input type="text" id="sub2" placeholder="Subject 2"><br>
+        <input type="text" id="sub3" placeholder="Subject 3"><br>
+        <input type="text" id="sub4" placeholder="Subject 4"><br>
+        <input type="text" id="sub5" placeholder="Subject 5"><br>
+
+        <button onclick="calculatePercentage()">Calculate</button>
+        <p id="result"></p>
+    </div>
+
+    <!-- Prank Popup -->
+    <div class="popup" id="prankPopup">
+        <h1>YOU GOT PRANKED!</h1>
+        <img src="https://i.imgur.com/Xg7EsIj.png" alt="Laughing Modi">
+    </div>
+
+    <!-- Laughing Emoji -->
+    <div class="laugh-emoji" id="laughEmoji">😂</div>
+
+    <!-- Fireworks -->
+    <div class="fireworks" id="fireworks"></div>
+
+    <!-- Sound Effect -->
+    <audio id="laughSound" src="https://www.fesliyanstudios.com/play-mp3/4385"></audio>
+
+    <script>
+        function calculatePercentage() {
+            let name = document.getElementById("username").value;
+            let sub1 = document.getElementById("sub1").value;
+            let sub2 = document.getElementById("sub2").value;
+            let sub3 = document.getElementById("sub3").value;
+            let sub4 = document.getElementById("sub4").value;
+            let sub5 = document.getElementById("sub5").value;
+            
+            let fakePercentage = Math.floor(Math.random() * (100 - 50 + 1)) + 50; // Fake percentage between 50% - 100%
+            
+            document.getElementById("result").innerHTML = 
+                name + ", Your percentage in " + sub1 + ", " + sub2 + ", " + sub3 + ", " + sub4 + ", " + sub5 + " is: " + fakePercentage + "%";
+            
+            setTimeout(() => {
+                document.getElementById("prankPopup").style.display = "flex";
+                document.getElementById("laughEmoji").style.display = "block";
+                document.getElementById("laughSound").play();
+                startFireworks();
+            }, 2000);
+        }
+
+        function startFireworks() {
+            const fireworksContainer = document.getElementById("fireworks");
+            fireworksContainer.style.display = "block";
+            for (let i = 0; i < 30; i++) {
+                let firework = document.createElement("div");
+                firework.classList.add("firework");
+                firework.style.left = Math.random() * 100 + "vw";
+                firework.style.top = Math.random() * 100 + "vh";
+                firework.style.backgroundColor = ["red", "yellow", "blue", "green", "purple"][Math.floor(Math.random() * 5)];
+                fireworksContainer.appendChild(firework);
+
+                setTimeout(() => {
+                    firework.remove();
+                }, 1000);
+            }
+        }
+    </script>
+
+</body>
+</html>
